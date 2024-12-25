@@ -1,39 +1,67 @@
 import java.util.Scanner;
+class Student {
+    int n;
+    int marks[];
+    int credits[];
+    String usn,name;
+    Scanner sc=new Scanner(System.in);
 
-class QuadraticEquation   {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Read input values for a, b, and c
-        System.out.print("Enter coefficient a: ");
-        double a = scanner.nextDouble();
-
-        System.out.print("Enter coefficient b: ");
-        double b = scanner.nextDouble();
-
-        System.out.print("Enter coefficient c: ");
-        double c = scanner.nextDouble();
-
-        // Calculate the discriminant (b^2 - 4ac)
-        double discriminant = b * b - 4 * a * c;
-
-        // Check the value of the discriminant
-        if (discriminant > 0) {
-            // Two real solutions
-            double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-            double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-            System.out.println("The real solutions are: " + root1 + " and " + root2);
-        } 
-        else if (discriminant == 0) {
-            // One real solution
-            double root = -b / (2 * a);
-            System.out.println("The real solution is: " + root);
-        } 
-        else {
-            // No real solutions
-            System.out.println("There are no real solutions.");
-        }
+    public Student () {
+        System.out.println("Enter the number of subjects: ");
+        n=sc.nextInt();
+        marks=new int[n];
+        credits=new int[n];
+    }
+    void getDetails(){
+        System.out.println("Enter the USN:");
+        usn=sc.nextLine();
 
         
+        System.out.println("Enter the Name:");
+        name=sc.nextLine();
+        System.out.println("Enter the credits and marks of"+" n " + "subjects: ");
+        for(int i=0;i<n;i++){
+            credits[i]=sc.nextInt();
+            marks[i]=sc.nextInt();
+        }
     }
+
+    void displayDetails(){
+        System.out.println("Name: "+name+" USN: "+usn);
+        
+
+        System.out.println("The marks and credits of "+n+" subjects: ");
+        for(int i=0;i<n;i++){
+            System.out.println(marks[i]+":"+credits[i]);
+        }
+        System.out.println("SGPA: "+calculateSGPA());
+    }
+    public double calculateSGPA() {
+        double totalCredits = 0;
+        double totalPoints = 0;
+
+        for (int i = 0; i < n; i++) {
+            double points = 0;
+            if (marks[i] >= 90) points = 10;
+            else if (marks[i] >= 80) points = 9;
+            else if (marks[i] >= 70) points = 8;
+            else if (marks[i] >= 60) points = 7;
+            else if (marks[i] >= 50) points = 6;
+            else if (marks[i] >= 40) points = 5;
+            totalCredits += credits[i];
+            totalPoints += points * credits[i];
+            }
+
+        return totalPoints/totalCredits;
+        }
+}
+
+class Main {
+    public static void main(String[] args){
+    Student s1=new Student ();
+    s1.getDetails();
+    s1.displayDetails();
+
+    }  
+
 }
